@@ -2,6 +2,7 @@ package com.note.services;
 
 
 import com.note.dto.PostDto;
+import com.note.dto.PostResponse;
 import com.note.entity.Post;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface PostService {
 
     void deletePost(Integer postId);
 
-    List<PostDto> getAllPost(Integer pageNumber , Integer pageSize);
+    PostResponse getAllPost(Integer pageNumber , Integer pageSize, String sortBy,String sortDir);
 
     PostDto getPostById(Integer postId);
 
