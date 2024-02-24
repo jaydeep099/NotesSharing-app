@@ -1,8 +1,12 @@
 package com.note.dto;
 
+import com.note.entity.Role;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,5 +26,7 @@ public class UserDto {
     private String password;
 
     @NotEmpty
-    private String about ;
+    private String about;
+
+    private Set<RoleDto> roles = new HashSet<>();
 }

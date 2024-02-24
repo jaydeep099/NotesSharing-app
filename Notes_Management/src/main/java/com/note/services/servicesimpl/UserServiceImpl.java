@@ -1,12 +1,16 @@
 package com.note.services.servicesimpl;
 
+import com.note.config.AppConstants;
 import com.note.dto.UserDto;
+import com.note.entity.Role;
 import com.note.entity.User;
 import com.note.exceptions.ResourceNotFoundException;
+import com.note.repository.RoleRepo;
 import com.note.repository.UserRepo;
 import com.note.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +23,22 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepo roleRepo;
+
+    @Override
+    public UserDto registerNewUser(UserDto userDto) {
+        User user = this.modelMapper.map(userDto,User.class);
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+        Role role =  this.roleRepo.findById(AppConstants.NORMAL_USER).get();
+        user.getRoles().add(role);
+        User newUser = this.userRepo.save(user);
+        return this.modelMapper.map(newUser ,UserDto.class);
+    }
 
     @Override
     public UserDto createUser(UserDto userDto) {
