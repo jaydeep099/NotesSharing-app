@@ -30,7 +30,7 @@ public class AuthController {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    public AuthenticationManager authenticationManager;
 
     @Autowired
     private UserService userService;
