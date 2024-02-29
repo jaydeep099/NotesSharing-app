@@ -48,7 +48,7 @@ public class AuthController {
     private void authenticate(String username, String password) throws  Exception{
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,password);
        try{
-           this.authenticationManager.authenticate(authenticationToken);
+           authenticationManager.authenticate(authenticationToken);
        }catch (BadCredentialsException e){
            System.out.println("Invalid Details");
            throw new ApiException("Invalid Username or Password");

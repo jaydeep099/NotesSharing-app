@@ -1,6 +1,10 @@
+import CustomNavbar from "../components/CustomNavbar";
+
 const About = () => {
   return (
-    <div>About</div>
+    <>
+    <CustomNavbar/>
+    </>
   )
 }
 
