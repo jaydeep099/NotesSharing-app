@@ -6,15 +6,26 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import About from "./pages/About";
 import Services from "./pages/Services";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import UserDashboard from "./pages/UserDashboard";
+import Privateroute from "./user-routes/Privateroute";
+import ProfileInfo from "./user-routes/ProfileInfo";
+
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer position="bottom-center" />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/about" element={<About/>}></Route>
-        <Route path="/services" element={<Services/>}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/services" element={<Services />}></Route>
+        <Route path="/user" element={<Privateroute />}>
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="profile-info" element={<ProfileInfo />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
