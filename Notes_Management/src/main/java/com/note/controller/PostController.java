@@ -2,25 +2,36 @@ package com.note.controller;
 
 import com.note.config.AppConstants;
 import com.note.dto.ApiResponse;
-import com.note.dto.CatergoryDto;
 import com.note.dto.PostDto;
 import com.note.dto.PostResponse;
-import com.note.entity.Post;
+import com.note.services.FileService;
 import com.note.services.PostService;
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1")
 public class PostController {
 
     @Autowired
     private PostService postService;
+
+   @Autowired
+   private FileService fileService;
+
+   @Value("${project.pdf}")
+   private String path;
     @PostMapping("/user/{userId}/category/{categoryId}/posts")
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable Integer userId, @PathVariable Integer categoryId){
         PostDto createPost = this.postService.createPost(postDto,userId,categoryId);
@@ -72,5 +83,26 @@ public class PostController {
     return  new ResponseEntity<List<PostDto>>(result,HttpStatus.OK);
     }
 
+    @PostMapping("/post/pdf/upload/{postId}")
+    public ResponseEntity<PostDto>  uploadPdf(
+            @RequestParam("pdf") MultipartFile image,
+            @PathVariable Integer postId
+            ) throws IOException
+    {
+        PostDto postDto = this.postService.getPostById(postId);
+        String fileName =  this.fileService.uploadpdf(path,image);
+        postDto.setPdfLink(fileName);
+        PostDto updatePost = this.postService.UpdatePost(postDto,postId);
+        return  new ResponseEntity<PostDto>(updatePost,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/post/pdf/{pdfName}" , produces = MediaType.APPLICATION_PDF_VALUE)
+    public void downloadPdf(@PathVariable("pdfName") String pdfName,
+                            HttpServletResponse response) throws IOException {
+        InputStream resource = this.fileService.getResources(path,pdfName);
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        StreamUtils.copy(resource,response.getOutputStream());
+
+    }
 
 }

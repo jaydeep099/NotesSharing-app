@@ -8,9 +8,9 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UserDashboard from "./pages/UserDashboard";
-import Privateroute from "./user-routes/Privateroute";
-import ProfileInfo from "./user-routes/ProfileInfo";
+import UserDashboard from "./pages/user-routes/UserDashboard";
+import ProfileInfo from "./pages/user-routes/ProfileInfo";
+import Privateroute from "./components/Privateroute";
 
 function App() {
   return (

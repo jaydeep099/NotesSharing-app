@@ -24,3 +24,12 @@ export const getCurrentUserDetails = () => {
     return undefined;
   }
 };
+
+export const getToken = () => {
+  if(isLoggedIn()){
+    return JSON.parse(localStorage.getItem("data")).token;
+  }
+  else{
+    return null;
+  }
+}
