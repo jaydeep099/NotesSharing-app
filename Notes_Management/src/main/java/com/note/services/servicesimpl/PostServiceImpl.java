@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
 
         Post post = this.modelMapper.map(postDto , Post.class);
         post.setPdfLink("");
-        post.setAddDate(new Date());
+        post.setAddedDate(new Date());
         post.setUser(user);
         post.setCategory(category);
 

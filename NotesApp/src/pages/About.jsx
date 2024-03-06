@@ -1,11 +1,8 @@
-import CustomNavbar from "../components/CustomNavbar";
-
+import Base from "../components/Base";
 const About = () => {
   return (
-    <>
-    <CustomNavbar/>
-    </>
-  )
-}
+   <Base><div>About Page</div></Base>
+  );
+};
 
 export default About;

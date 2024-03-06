@@ -24,7 +24,7 @@ public class Post {
     private String pdfLink;
 
     @Column(name = "post_date")
-    private Date addDate;
+    private Date addedDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

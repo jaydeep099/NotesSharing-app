@@ -9,20 +9,25 @@ import {
 } from "reactstrap";
 import { loadAllCategories } from "../Services/category";
 import { useEffect, useState } from "react";
-import { createPost as doCreatePost } from "../Services/post-service";
+import {
+  createPost as doCreatePost,
+  uploadPostImage,
+} from "../Services/post-service";
 import { getCurrentUserDetails } from "../auth";
+import { toast } from "react-toastify";
+
 const AddPost = () => {
   const [categories, setCategories] = useState([]);
   const [post, setPost] = useState({
     title: "",
     categoryId: "",
   });
+  const [pdf, setPdf] = useState(null);
   const [user, setUser] = useState(undefined);
   useEffect(() => {
     setUser(getCurrentUserDetails());
     loadAllCategories()
       .then((data) => {
-        console.log(data);
         setCategories(data);
       })
       .catch((error) => {
@@ -35,7 +40,6 @@ const AddPost = () => {
   };
   const createPost = (e) => {
     e.preventDefault();
-   // console.log(post);
     if (post.title.trim() === "") {
       alert("post title is required");
       return;
@@ -46,16 +50,27 @@ const AddPost = () => {
       return;
     }
     post["userId"] = user.id;
-    //post["categoryId"]=categories.id;
     doCreatePost(post)
       .then((data) => {
-        alert("post created");
-       // console.log(post);
+        uploadPostImage(pdf, data.postId)
+          .then((data) => {
+            toast.success("pdf uploaded!!");
+          })
+          .catch((error) => {
+            toast.error("error in uploading image");
+            console.log(error);
+          });
+        toast.success("post created!!");
       })
       .catch((error) => {
-        alert("error created");
+        toast.error("error occured");
         console.log(error);
       });
+  };
+
+  const handleFileChange = (e) => {
+    console.log(e.target.files[0]);
+    setPdf(e.target.files[0]);
   };
   return (
     <div className="wrapper">
@@ -73,6 +88,12 @@ const AddPost = () => {
                 name="title"
               />
             </div>
+
+            <div className="mt-3">
+              <Label for="pdf">Drop your Notes Here</Label>
+              <Input type="file" id="pdf" onChange={handleFileChange} />
+            </div>
+
             <div className="my-3">
               <Label for="category">Post Category</Label>
               <Input
