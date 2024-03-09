@@ -22,15 +22,21 @@ export const loadPost = (postId) => {
   return myAxios.get("/posts/" + postId).then((response) => response.data);
 };
 
-export const uploadPostImage = (pdf, postId) => {
+export const uploadPostPdf = (pdf, postId) => {
   let formData = new FormData();
   formData.append("pdf", pdf);
 
   return privateAxios
-    .post(`/post/pdf/upload/${postId}`, formData,{
-      headers:{
-        'Content-Type':'application/pdf'
-      }
+    .post(`/post/pdf/upload/${postId}`, formData, {
+      headers: {
+        "Content-Type": "application/pdf",
+      },
     })
+    .then((response) => response.data);
+};
+
+export const loadPostCategoryWise = (categoryId) => {
+  return privateAxios
+    .get(`/category/${categoryId}/posts`)
     .then((response) => response.data);
 };

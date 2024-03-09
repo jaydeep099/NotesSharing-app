@@ -11,7 +11,7 @@ import { loadAllCategories } from "../Services/category";
 import { useEffect, useState } from "react";
 import {
   createPost as doCreatePost,
-  uploadPostImage,
+  uploadPostPdf,
 } from "../Services/post-service";
 import { getCurrentUserDetails } from "../auth";
 import { toast } from "react-toastify";
@@ -52,7 +52,7 @@ const AddPost = () => {
     post["userId"] = user.id;
     doCreatePost(post)
       .then((data) => {
-        uploadPostImage(pdf, data.postId)
+        uploadPostPdf(pdf, data.postId)
           .then((data) => {
             toast.success("pdf uploaded!!");
           })

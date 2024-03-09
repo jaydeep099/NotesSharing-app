@@ -5,6 +5,9 @@ import { loadPost } from "../Services/post-service";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../Services/helper";
+import { Viewer,Worker } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 const PostPage = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
@@ -20,9 +23,9 @@ const PostPage = () => {
       });
   }, []);
 
-  const printDate = (numbers) =>{
+  const printDate = (numbers) => {
     return new Date(numbers).toLocaleDateString();
-  }
+  };
   return (
     <Base>
       <Container className="mt-4">
@@ -32,21 +35,26 @@ const PostPage = () => {
             <Card className="mt-3 ps-2">
               <CardBody>
                 <CardText>
-                  Posted by <b>{post?.user?.name}</b> on <b>{printDate(post?.addedDate)}</b> 
+                  Posted by <b>{post?.user?.name}</b> on{" "}
+                  <b>{printDate(post?.addedDate)}</b>
                 </CardText>
                 <CardText>
                   <h2>{post?.title}</h2>
                 </CardText>
                 <CardText>
-                  <span className="text-muted">{post?.category.categoryTitle}</span>
+                  <span className="text-muted">
+                    {post?.category?.categoryTitle}
+                  </span>
                 </CardText>
-                <div>
-                  <iframe
-                    src={BASE_URL+'/post/pdf/'+post?.pdfLink}
-                    width="100%"
-                    height="500px"
-                    sandbox="allow-same-origin"
-                  ></iframe>
+                <div
+                  style={{
+                    border: "1px solid rgba(0, 0, 0, 0.3)",
+                    height: "750px",
+                  }}
+                >
+                  <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                  <Viewer fileUrl={BASE_URL + "/post/pdf/" + post?.pdfLink} />
+                  </Worker>
                 </div>
               </CardBody>
             </Card>
