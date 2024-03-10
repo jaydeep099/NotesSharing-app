@@ -18,9 +18,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebSecurity
 @EnableWebMvc
-public class SecurityConfig{
+public class SecurityConfig {
 
-    public static final String[] PUBLIC_URLS={
+    public static final String[] PUBLIC_URLS = {
             "api/v1/auth/**",
             "/v3/api-docs",
             "/v2/api-docs",
@@ -41,21 +41,21 @@ public class SecurityConfig{
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        (authz)-> authz
-                        .requestMatchers(PUBLIC_URLS).permitAll()
-                        .requestMatchers(HttpMethod.GET).permitAll()
-                        .anyRequest()
-                        .authenticated()
+                        (authz) -> authz
+                                .requestMatchers(PUBLIC_URLS).permitAll()
+                                .requestMatchers(HttpMethod.GET).permitAll()
+                                .anyRequest()
+                                .authenticated()
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(this.jwtAuthenticationEntryPoint))
-                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-       http
-               .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+        http
+                .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
-       http
-               .addFilterBefore( this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+                .addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-       return http.build();
+        return http.build();
     }
 }

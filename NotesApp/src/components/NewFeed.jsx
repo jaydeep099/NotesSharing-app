@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { loadAllPosts } from "../Services/post-service";
+import {
+  loadAllPosts,
+  deletePostService,
+  loadPostUserWise,
+} from "../Services/post-service";
 import {
   Row,
   Col,
@@ -10,6 +14,7 @@ import {
 } from "reactstrap";
 import Post from "./Post";
 import { toast } from "react-toastify";
+import { getCurrentUserDetails } from "../auth";
 const NewFeed = () => {
   const [postContent, setPostContent] = useState({
     totalPages: "",
@@ -22,8 +27,45 @@ const NewFeed = () => {
     changePage(0);
   }, []);
 
+  useEffect(() => {
+    loadAllPosts(postContent.pageNumber, postContent.pageSize)
+      .then((data) => {
+        setPostContent(data);
+        window.scroll(0, 0);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error in loading posts");
+      });
+  }, [postContent]); 
+
+  function deletePost(post) {
+    deletePostService(post?.postId)
+      .then((res) => {
+        console.log(res);
+        toast.success("Post is deleted");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error in deleting post");
+      })
+      .finally(() => {
+        loadPostData();
+      });
+  }
+
+  function loadPostData() {
+    loadPostUserWise(getCurrentUserDetails().id)
+      .then((data) => {
+        console.log(data);
+        setPostContent(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error in loading user post");
+      });
+  }
   const changePage = (pageNumber = 0, pageSize = 5) => {
-    
     if (pageNumber > postContent.pageNumber && postContent.lastPage) {
       return;
     }
@@ -45,11 +87,11 @@ const NewFeed = () => {
       <Row>
         <Col
           md={{
-            size: 12
+            size: 12,
           }}
         >
           {postContent?.content?.map((post) => (
-            <Post post={post} key={post.postId} />
+            <Post deletePost={deletePost} post={post} key={post.postId} />
           ))}
           <Container className="mt-3">
             <Pagination size="lg">
@@ -59,7 +101,7 @@ const NewFeed = () => {
               >
                 <PaginationLink previous></PaginationLink>
               </PaginationItem>
-              {[...Array(postContent.totalPages)].map((item,index) => (
+              {[...Array(postContent.totalPages)].map((item, index) => (
                 <PaginationItem
                   onClick={() => changePage(index)}
                   active={index === postContent.pageNumber}
