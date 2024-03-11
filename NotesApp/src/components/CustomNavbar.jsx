@@ -44,22 +44,7 @@ const CustomNavbar = () => {
               <NavLink tag={ReactLink} to="/">
                 Feed
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={ReactLink} to="/about">
-                About
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={ReactLink} to="/services">
-                Services
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={ReactLink} to="/Contact">
-                Contact us
-              </NavLink>
-            </NavItem>  
+            </NavItem> 
           </Nav>
           <Nav navbar>
             {login && (

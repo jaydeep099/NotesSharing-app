@@ -52,3 +52,8 @@ export const deletePostService = (postId) => {
     .delete(`/posts/${postId}`)
     .then((response) => response.data);
 };
+
+export const updatePost = (post , postId) => {
+  console.log(post);
+  return privateAxios.put(`/posts/${postId}`,post).then(response => response.data)
+}

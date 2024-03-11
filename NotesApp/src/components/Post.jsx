@@ -31,6 +31,21 @@ const Post = ({ post = { postId: 0, title: "Default title" },deletePost }) => {
           ) : (
             ""
           )}
+          {isLoggedIn ? (
+            user?.id == post.user.id ? (
+              <Button 
+              tag={Link}
+              to={`/user/update-note/${post.postId}`}
+              color="warning" 
+              className="ms-2">
+                update
+              </Button>
+            ) : (
+              ""
+            )
+          ) : (
+            ""
+          )}
         </div>
       </CardBody>
     </Card>
