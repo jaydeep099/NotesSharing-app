@@ -47,10 +47,8 @@ const SignUp = () => {
 
     console.log(data);
     signup(data)
-      .then((resp) => {
-        console.log(resp);
-        console.log("Success");
-        toast.success("User is registered Successfully!! user id" + resp.id);
+      .then((resp) => {;
+        toast.success("Registered Successfully!!");
         setData({
           name: "",
           email: "",

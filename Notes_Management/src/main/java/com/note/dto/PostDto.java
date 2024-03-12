@@ -1,7 +1,5 @@
 package com.note.dto;
 
-import com.note.entity.Category;
-import com.note.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 

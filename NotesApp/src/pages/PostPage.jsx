@@ -14,7 +14,6 @@ const PostPage = () => {
   useEffect(() => {
     loadPost(postId)
       .then((data) => {
-        console.log(data);
         setPost(data);
       })
       .catch((error) => {

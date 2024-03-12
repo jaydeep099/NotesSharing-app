@@ -57,7 +57,6 @@ const Login = () => {
         console.log(data);
 
         doLogin(data, () => {
-          console.log("login detail is saved to localstorage");
           navigate("/user/dashboard")
         });
         toast.success("Login Success");
@@ -67,7 +66,7 @@ const Login = () => {
         if (error.response.status == 400 || error.response.status == 404) {
           toast.error(error.response.data.message);
         } else {
-          toast.error("Something wernt wrong");
+          toast.error("Something went wrong");
         }
       });
   };

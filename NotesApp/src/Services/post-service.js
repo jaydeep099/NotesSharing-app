@@ -1,7 +1,6 @@
 import { privateAxios } from "./helper";
 import { myAxios } from "./helper";
 export const createPost = (postData) => {
-  //console.log(postData);
   return privateAxios
     .post(
       `/user/${postData.userId}/category/${postData.categoryId}/posts`,
@@ -54,6 +53,5 @@ export const deletePostService = (postId) => {
 };
 
 export const updatePost = (post , postId) => {
-  console.log(post);
   return privateAxios.put(`/posts/${postId}`,post).then(response => response.data)
 }

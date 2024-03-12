@@ -27,30 +27,16 @@ const NewFeed = () => {
     changePage(0);
   }, []);
 
-  useEffect(() => {
-    loadAllPosts(postContent.pageNumber, postContent.pageSize)
-      .then((data) => {
-        setPostContent(data);
-        window.scroll(0, 0);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Error in loading posts");
-      });
-  }, [postContent]); 
-
   function deletePost(post) {
     deletePostService(post?.postId)
       .then((res) => {
         console.log(res);
         toast.success("Post is deleted");
+        loadPostData();
       })
       .catch((error) => {
         console.log(error);
         toast.error("Error in deleting post");
-      })
-      .finally(() => {
-        loadPostData();
       });
   }
 

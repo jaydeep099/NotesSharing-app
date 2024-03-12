@@ -7,7 +7,6 @@ import SignUp from "./pages/SignUp";
 import { ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserDashboard from "./pages/user-routes/UserDashboard";
-import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import Privateroute from "./components/Privateroute";
 import PostPage from "./pages/PostPage";
 import Categories from "./pages/Categories";
@@ -25,7 +24,6 @@ function App() {
         <Route path="/categories/:categoryId" element={<Categories />}></Route>
         <Route path="/user" element={<Privateroute />}>
           <Route path="dashboard" element={<UserDashboard />} />
-          <Route path="profile-info" element={<ProfileInfo />} />
           <Route path="update-note/:noteId" element={<UpdateNotes />} />
         </Route>
       </Routes>

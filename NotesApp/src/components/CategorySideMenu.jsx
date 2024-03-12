@@ -9,7 +9,6 @@ const CategorySideMenu = () => {
   useEffect(() => {
     loadAllCategories()
       .then((data) => {
-        console.log(data);
         setCategories([...data]);
       })
       .catch((error) => {

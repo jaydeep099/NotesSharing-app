@@ -1,7 +1,6 @@
 package com.note.services;
 
 import com.note.dto.CatergoryDto;
-import com.note.entity.Category;
 import java.util.List;
 
 public interface CategoryService {

@@ -11,7 +11,6 @@ const Categories = () => {
   const { categoryId } = useParams();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    console.log(categoryId);
     loadPostCategoryWise(categoryId)
       .then((data) => {
         setPosts([...data]);

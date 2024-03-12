@@ -3,7 +3,6 @@ package com.note.services;
 
 import com.note.dto.PostDto;
 import com.note.dto.PostResponse;
-import com.note.entity.Post;
 
 import java.util.List;
 

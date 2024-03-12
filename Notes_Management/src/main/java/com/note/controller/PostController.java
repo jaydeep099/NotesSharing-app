@@ -86,17 +86,16 @@ public class PostController {
 
     @PostMapping("/post/pdf/upload/{postId}")
     public ResponseEntity<PostDto>  uploadPdf(
-            @RequestParam("pdf") MultipartFile image,
+            @RequestParam("pdf") MultipartFile pdf,
             @PathVariable Integer postId
             ) throws IOException
     {
         PostDto postDto = this.postService.getPostById(postId);
-        String fileName =  this.fileService.uploadpdf(path,image);
+        String fileName =  this.fileService.uploadpdf(path,pdf);
         postDto.setPdfLink(fileName);
         PostDto updatePost = this.postService.UpdatePost(postDto,postId);
         return  new ResponseEntity<PostDto>(updatePost,HttpStatus.OK);
     }
-
     @GetMapping(value = "/post/pdf/{pdfName}" , produces = MediaType.APPLICATION_PDF_VALUE)
     public void downloadPdf(@PathVariable("pdfName") String pdfName,
                             HttpServletResponse response) throws IOException {

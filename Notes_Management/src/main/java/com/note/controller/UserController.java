@@ -2,7 +2,6 @@ package com.note.controller;
 
 import com.note.dto.ApiResponse;
 import com.note.dto.UserDto;
-import com.note.repository.RoleRepo;
 import com.note.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")

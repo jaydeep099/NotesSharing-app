@@ -20,7 +20,6 @@ const UserDashboard = () => {
   function deletePost(post) {
     deletePostService(post?.postId)
       .then((res) => {
-        console.log(res);
         toast.success("post is deleted");
         loadPostData();
       })
@@ -33,7 +32,6 @@ const UserDashboard = () => {
   function loadPostData() {
     loadPostUserWise(getCurrentUserDetails().id)
       .then((data) => {
-        console.log(data);
         setPosts([...data]);
       })
       .catch((error) => {
@@ -44,7 +42,6 @@ const UserDashboard = () => {
   return (
     <Base>
       <Container>
-        <div>UserDashboard</div>
         <AddPost />
         <h1 className="my-3">Your Posts</h1>
         {posts.map((post, index) => {

@@ -2,10 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Base from "../components/Base";
 import { useEffect, useState } from "react";
 import {
-  createPost,
+  
   loadPost,
   updatePost,
-  uploadPostPdf,
 } from "../Services/post-service";
 import { toast } from "react-toastify";
 import { loadAllCategories } from "../Services/category";
@@ -68,16 +67,6 @@ const UpdateNotes = ({ user }) => {
     )
       .then((response) => {
         console.log(response);
-
-        uploadPostPdf(pdf, post.postId)
-          .then((data) => {
-            toast.success("pdf uploaded!!");
-          })
-          .catch((error) => {
-            toast.error("error in uploading image");
-            console.log(error);
-          });
-
         toast.success("Your post is updated");
       })
       .catch((error) => {
