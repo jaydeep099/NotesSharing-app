@@ -1,11 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Base from "../components/Base";
 import { useEffect, useState } from "react";
-import {
-  
-  loadPost,
-  updatePost,
-} from "../Services/post-service";
+import { uploadPostPdf, loadPost, updatePost } from "../Services/post-service";
 import { toast } from "react-toastify";
 import { loadAllCategories } from "../Services/category";
 import {
@@ -60,12 +56,19 @@ const UpdateNotes = ({ user }) => {
   };
   const UpdateNote = (e) => {
     e.preventDefault();
-    console.log(post);
     updatePost(
-      { ...post, category: { categoryId: post.categoryId } },
+      { ...post },
       post.postId
     )
       .then((response) => {
+        uploadPostPdf(pdf, response.postId)
+          .then((data) => {
+            toast.success("pdf uploaded!!");
+          })
+          .catch((error) => {
+            toast.error("error in uploading image");
+            console.log(error);
+          });
         console.log(response);
         toast.success("Your post is updated");
       })
@@ -102,11 +105,7 @@ const UpdateNotes = ({ user }) => {
 
               <div className="mt-3">
                 <Label for="pdf">Update your Notes Here</Label>
-                <Input
-                  type="file"
-                  id="pdf"
-                  onChange={handleFileChange}
-                />
+                <Input type="file" id="pdf" onChange={handleFileChange} />
               </div>
 
               <div className="my-3">
