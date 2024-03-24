@@ -57,7 +57,7 @@ const CustomNavbar = () => {
                 </NavItem>
 
                 <NavItem>
-                  <NavLink onClick={logout}>
+                  <NavLink  onClick={logout}>
                     Logout
                   </NavLink>
                 </NavItem>

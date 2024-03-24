@@ -34,7 +34,7 @@ const PostPage = () => {
             <Card className="mt-3 ps-2">
               <CardBody>
                 <CardText>
-                  Posted by <b>{post?.user?.name}</b> on{" "}
+                  Posted by <b>{post?.user?.name}</b> on
                   <b>{printDate(post?.addedDate)}</b>
                 </CardText>
                 <CardText>

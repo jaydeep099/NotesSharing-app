@@ -33,7 +33,6 @@ public class NotesManagementApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(this.passwordEncoder.encode("xyz"));
 		try {
 			Role role = new Role();
 			role.setId(AppConstants.ADMIN_USER);

@@ -57,7 +57,7 @@ const AddPost = () => {
             toast.success("pdf uploaded!!");
           })
           .catch((error) => {
-            toast.error("error in uploading image");
+            toast.error("error in uploading pdf");
             console.log(error);
           });
         toast.success("post created!!");

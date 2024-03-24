@@ -66,7 +66,7 @@ const UpdateNotes = ({ user }) => {
             toast.success("pdf uploaded!!");
           })
           .catch((error) => {
-            toast.error("error in uploading image");
+            toast.error("error in uploading pdf");
             console.log(error);
           });
         console.log(response);
